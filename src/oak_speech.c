@@ -30,32 +30,34 @@ enum
 
 struct OakSpeechResources
 {
-    void *oakSpeechBackgroundTiles;
-    void *trainerPicTilemap;
-    void *pikachuIntroTilemap;
-    void *unused1;
-    u16 hasPlayerBeenNamed;
-    u16 currentPage;
-    u16 windowIds[NUM_INTRO_WINDOWS];
-    u8 textColor[3];
-    u8 textSpeed;
-    u8 unused2[0x1800];
-    u8 bg2TilemapBuffer[0x400];
-    u8 bg1TilemapBuffer[0x800];
+    void *oakSpeechBackgroundTiles;   // Pointer to the background tiles used in Oak's speech scene.
+    void *trainerPicTilemap;          // Pointer to the tilemap for the trainer's picture.
+    void *pikachuIntroTilemap;        // Pointer to the tilemap for Pikachu's introduction.
+    void *unused1;                    // Placeholder for unused data, possibly for future expansion.
+    
+    u16 hasPlayerBeenNamed;           // 16-bit flag to check if the player has been named yet.
+    u16 currentPage;                  // 16-bit variable to track the current page in the dialogue or display.
+    u16 windowIds[NUM_INTRO_WINDOWS]; // Array holding window IDs for the introduction sequence.
+    u8 textColor[3];                  // Array to store RGB color values for the text.
+    u8 textSpeed;                     // 8-bit variable to store the speed at which text is displayed.    
+    u8 unused2[0x1800];               // Unused memory space, possibly reserved for future use or alignment.
+    u8 bg2TilemapBuffer[0x400];       // Buffer for the background layer 2 tilemap, likely used for rendering the scene.
+    u8 bg1TilemapBuffer[0x800];       // Buffer for the background layer 1 tilemap, also for rendering purposes.
 };
+
 
 static EWRAM_DATA struct OakSpeechResources *sOakSpeechResources = NULL;
 
 static void Task_NewGameScene(u8);
 
-/* static void ControlsGuide_LoadPage1(void);
+static void ControlsGuide_LoadPage1(void);
 static void Task_ControlsGuide_HandleInput(u8);
 static void Task_ControlsGuide_ChangePage(u8);
 static void Task_ControlsGuide_Clear(u8);
 
 static void Task_PikachuIntro_LoadPage1(u8);
 static void Task_PikachuIntro_HandleInput(u8);
-static void Task_PikachuIntro_Clear(u8); */
+static void Task_PikachuIntro_Clear(u8);
 
 static void Task_OakSpeech_Init(u8);
 static void Task_OakSpeech_WelcomeToTheWorld(u8);
@@ -687,7 +689,7 @@ void StartNewGameScene(void)
 {
     gPlttBufferUnfaded[0] = RGB_BLACK;
     gPlttBufferFaded[0]   = RGB_BLACK;
-    CreateTask(Task_NewGameScene, 0);
+     CreateTask(Task_NewGameScene, 0);
     SetMainCallback2(CB2_NewGameScene);
 }
 
@@ -705,7 +707,7 @@ void StartNewGameScene(void)
 #define tTextboxWindowId            data[14]
 #define tDelta                      data[15]
 
-/* static void Task_NewGameScene(u8 taskId)
+static void Task_NewGameScene(u8 taskId)
 {
     switch (gMain.state)
     {
@@ -774,7 +776,7 @@ void StartNewGameScene(void)
         FillBgTilemapBufferRect_Palette0(1, 0xD00F, 0,  0, 30, 2);
         FillBgTilemapBufferRect_Palette0(1, 0xD002, 0,  2, 30, 1);
         FillBgTilemapBufferRect_Palette0(1, 0xD00E, 0, 19, 30, 1);
-        ControlsGuide_LoadPage1();
+         ControlsGuide_LoadPage1();
         gPaletteFade.bufferTransferDisabled = FALSE;
         gTasks[taskId].tTextCursorSpriteId = CreateTextCursorSprite(0, 230, 149, 0, 0);
         BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
@@ -786,15 +788,15 @@ void StartNewGameScene(void)
         ShowBg(1);
         SetVBlankCallback(VBlankCB_NewGameScene);
         PlayBGM(MUS_NEW_GAME_INSTRUCT);
-        gTasks[taskId].func = Task_ControlsGuide_HandleInput;
+         gTasks[taskId].func = Task_ControlsGuide_HandleInput;
         gMain.state = 0;
         return;
     }
 
     gMain.state++;
 }
- */
-/* static void ControlsGuide_LoadPage1(void)
+
+ static void ControlsGuide_LoadPage1(void)
 {
     TopBarWindowPrintTwoStrings(gText_Controls, gText_ABUTTONNext, FALSE, 0, TRUE);
     sOakSpeechResources->windowIds[0] = AddWindow(sControlsGuide_WindowTemplates[sOakSpeechResources->currentPage]);
@@ -804,9 +806,9 @@ void StartNewGameScene(void)
     CopyWindowToVram(sOakSpeechResources->windowIds[0], COPYWIN_FULL);
     FillBgTilemapBufferRect_Palette0(1, 0x3000, 1, 3, 5, 16);
     CopyBgTilemapBufferToVram(1);
-} */
+} 
 
-/* static void Task_ControlsGuide_LoadPage(u8 taskId)
+ static void Task_ControlsGuide_LoadPage(u8 taskId)
 {
     u8 currWindow = 0;
     u8 page2Or3 = sOakSpeechResources->currentPage - 1; // 0 if page 2, 1 if page 3
@@ -835,8 +837,8 @@ void StartNewGameScene(void)
     BeginNormalPaletteFade(PALETTES_OBJECTS | 0xDFFF, -1, 16, 0, GetTextWindowPalette(2)[15]);
     gTasks[taskId].func = Task_ControlsGuide_HandleInput;
 }
- */
-/* static void Task_ControlsGuide_HandleInput(u8 taskId)
+ 
+ static void Task_ControlsGuide_HandleInput(u8 taskId)
 { 
     if (!gPaletteFade.active)
     {
@@ -903,7 +905,7 @@ static void Task_ControlsGuide_ChangePage(u8 taskId)
 }
 
 #undef tDelta
-*/
+
 static void Task_ControlsGuide_Clear(u8 taskId)
 {
     u8 i = 0;

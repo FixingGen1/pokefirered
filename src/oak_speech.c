@@ -48,14 +48,14 @@ static EWRAM_DATA struct OakSpeechResources *sOakSpeechResources = NULL;
 
 static void Task_NewGameScene(u8);
 
-static void ControlsGuide_LoadPage1(void);
+/* static void ControlsGuide_LoadPage1(void);
 static void Task_ControlsGuide_HandleInput(u8);
 static void Task_ControlsGuide_ChangePage(u8);
 static void Task_ControlsGuide_Clear(u8);
 
 static void Task_PikachuIntro_LoadPage1(u8);
 static void Task_PikachuIntro_HandleInput(u8);
-static void Task_PikachuIntro_Clear(u8);
+static void Task_PikachuIntro_Clear(u8); */
 
 static void Task_OakSpeech_Init(u8);
 static void Task_OakSpeech_WelcomeToTheWorld(u8);
@@ -705,7 +705,7 @@ void StartNewGameScene(void)
 #define tTextboxWindowId            data[14]
 #define tDelta                      data[15]
 
-static void Task_NewGameScene(u8 taskId)
+/* static void Task_NewGameScene(u8 taskId)
 {
     switch (gMain.state)
     {
@@ -793,8 +793,8 @@ static void Task_NewGameScene(u8 taskId)
 
     gMain.state++;
 }
-
-static void ControlsGuide_LoadPage1(void)
+ */
+/* static void ControlsGuide_LoadPage1(void)
 {
     TopBarWindowPrintTwoStrings(gText_Controls, gText_ABUTTONNext, FALSE, 0, TRUE);
     sOakSpeechResources->windowIds[0] = AddWindow(sControlsGuide_WindowTemplates[sOakSpeechResources->currentPage]);
@@ -804,9 +804,9 @@ static void ControlsGuide_LoadPage1(void)
     CopyWindowToVram(sOakSpeechResources->windowIds[0], COPYWIN_FULL);
     FillBgTilemapBufferRect_Palette0(1, 0x3000, 1, 3, 5, 16);
     CopyBgTilemapBufferToVram(1);
-}
+} */
 
-static void Task_ControlsGuide_LoadPage(u8 taskId)
+/* static void Task_ControlsGuide_LoadPage(u8 taskId)
 {
     u8 currWindow = 0;
     u8 page2Or3 = sOakSpeechResources->currentPage - 1; // 0 if page 2, 1 if page 3
@@ -835,9 +835,9 @@ static void Task_ControlsGuide_LoadPage(u8 taskId)
     BeginNormalPaletteFade(PALETTES_OBJECTS | 0xDFFF, -1, 16, 0, GetTextWindowPalette(2)[15]);
     gTasks[taskId].func = Task_ControlsGuide_HandleInput;
 }
-
-static void Task_ControlsGuide_HandleInput(u8 taskId)
-{
+ */
+/* static void Task_ControlsGuide_HandleInput(u8 taskId)
+{ 
     if (!gPaletteFade.active)
     {
         if(JOY_NEW((A_BUTTON | B_BUTTON)))
@@ -903,7 +903,7 @@ static void Task_ControlsGuide_ChangePage(u8 taskId)
 }
 
 #undef tDelta
-
+*/
 static void Task_ControlsGuide_Clear(u8 taskId)
 {
     u8 i = 0;
